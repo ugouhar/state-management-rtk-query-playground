@@ -12,6 +12,7 @@ export const todosApi = createApi({
     baseUrl: "https://jsonplaceholder.typicode.com",
   }),
   tagTypes: ["Todo"],
+  keepUnusedDataFor: 60,
   endpoints: (builder) => ({
     getTodos: builder.query<Todo[], void>({
       query: () => "/todos",
@@ -20,6 +21,7 @@ export const todosApi = createApi({
     getTodoById: builder.query<Todo, number>({
       query: (id) => `/todos/${id}`,
       providesTags: (_result, _error, id) => [{ type: "Todo", id }],
+      keepUnusedDataFor: 10,
     }),
     addTodo: builder.mutation<Todo, Partial<Todo>>({
       query: (newTodo) => ({
