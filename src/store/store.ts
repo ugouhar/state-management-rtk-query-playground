@@ -1,9 +1,12 @@
 import { configureStore } from "@reduxjs/toolkit";
+import { todosApi } from "../features/todos/todosApi";
 
 export const store = configureStore({
   reducer: {
-    // API slice reducers will be registered here as we build them
+    [todosApi.reducerPath]: todosApi.reducer,
   },
+  middleware: (getDefaultMiddleware) =>
+    getDefaultMiddleware().concat(todosApi.middleware),
 });
 
 export type RootState = ReturnType<typeof store.getState>;
