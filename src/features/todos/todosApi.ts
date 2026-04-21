@@ -11,9 +11,11 @@ export const todosApi = createApi({
   baseQuery: fetchBaseQuery({
     baseUrl: "https://jsonplaceholder.typicode.com",
   }),
+  tagTypes: ["Todo"],
   endpoints: (builder) => ({
     getTodos: builder.query<Todo[], void>({
       query: () => "/todos",
+      providesTags: ["Todo"],
     }),
     getTodoById: builder.query<Todo, number>({
       query: (id) => `/todos/${id}`,
@@ -24,12 +26,14 @@ export const todosApi = createApi({
         method: "POST",
         body: newTodo,
       }),
+      invalidatesTags: ["Todo"],
     }),
     deleteTodo: builder.mutation<void, number>({
       query: (id) => ({
         url: `/todos/${id}`,
         method: "DELETE",
       }),
+      invalidatesTags: ["Todo"],
     }),
   }),
 });
