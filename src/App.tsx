@@ -1,6 +1,7 @@
 import { AddTodo } from "./features/todos/AddTodo";
 import { DeleteTodo } from "./features/todos/DeleteTodo";
 import { TodoList } from "./features/todos/TodoList";
+import "./App.css";
 
 function App() {
   return (

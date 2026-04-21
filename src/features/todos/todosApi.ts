@@ -15,10 +15,11 @@ export const todosApi = createApi({
   endpoints: (builder) => ({
     getTodos: builder.query<Todo[], void>({
       query: () => "/todos",
-      providesTags: ["Todo"],
+      providesTags: [{ type: "Todo", id: "LIST" }],
     }),
     getTodoById: builder.query<Todo, number>({
       query: (id) => `/todos/${id}`,
+      providesTags: (_result, _error, id) => [{ type: "Todo", id }],
     }),
     addTodo: builder.mutation<Todo, Partial<Todo>>({
       query: (newTodo) => ({
@@ -26,14 +27,17 @@ export const todosApi = createApi({
         method: "POST",
         body: newTodo,
       }),
-      invalidatesTags: ["Todo"],
+      invalidatesTags: [{ type: "Todo", id: "LIST" }],
     }),
     deleteTodo: builder.mutation<void, number>({
       query: (id) => ({
         url: `/todos/${id}`,
         method: "DELETE",
       }),
-      invalidatesTags: ["Todo"],
+      invalidatesTags: (_result, _error, id) => [
+        { type: "Todo", id: "LIST" },
+        { type: "Todo", id },
+      ],
     }),
   }),
 });
