@@ -1,16 +1,32 @@
+import { useState } from "react";
 import { useGetPostByIdQuery } from "./postApi";
+import { skipToken } from "@reduxjs/toolkit/query";
 
 export const Post = () => {
-  const id = 1;
-  const { data, isError, isLoading } = useGetPostByIdQuery(id);
+  const [value, setValue] = useState<string>("");
 
-  if (isLoading) return <p>Loading post...</p>;
-  if (isError) return <p>Something went wrong in loading post !</p>;
-  if (!data) return null;
+  let postId: number | null = parseInt(value.trim());
+
+  if (Number.isNaN(postId)) {
+    postId = null;
+  }
+
+  const { data, isError, isLoading } = useGetPostByIdQuery(postId ?? skipToken);
+
+  const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
 
   return (
     <div>
-      {data.id}, {data.title}
+      <input value={value} onChange={handleChangeInput} />
+      {data && (
+        <div>
+          {data.id}, {data.title}
+        </div>
+      )}
+      {isLoading && <p>Loading post...</p>}
+      {isError && <p>Something went wrong in loading post !</p>}
     </div>
   );
 };
