@@ -2,6 +2,7 @@ import { AddTodo } from "./features/todos/AddTodo";
 import { DeleteTodo } from "./features/todos/DeleteTodo";
 import { TodoList } from "./features/todos/TodoList";
 import "./App.css";
+import { Post } from "./features/posts/Post";
 
 function App() {
   return (
@@ -9,6 +10,7 @@ function App() {
       <h1>RTK Query Playground 🚀</h1>
       <AddTodo />
       <DeleteTodo />
+      <Post />
       <TodoList />
     </>
   );
