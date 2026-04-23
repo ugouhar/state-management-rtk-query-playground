@@ -11,7 +11,14 @@ export const Post = () => {
     postId = null;
   }
 
-  const { data, isError, isLoading } = useGetPostByIdQuery(postId ?? skipToken);
+  const { data, isError, isLoading } = useGetPostByIdQuery(
+    postId ?? skipToken,
+    {
+      refetchOnFocus: true,
+      refetchOnMountOrArgChange: 20,
+      pollingInterval: 15000,
+    },
+  );
 
   const handleChangeInput = (e: React.ChangeEvent<HTMLInputElement>) => {
     setValue(e.target.value);
