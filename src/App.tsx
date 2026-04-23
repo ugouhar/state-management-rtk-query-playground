@@ -2,7 +2,7 @@ import { AddTodo } from "./features/todos/AddTodo";
 import { DeleteTodo } from "./features/todos/DeleteTodo";
 import { TodoList } from "./features/todos/TodoList";
 import "./App.css";
-import { Post } from "./features/posts/Post";
+import { LazyPost, Post } from "./features/posts/Post";
 
 function App() {
   return (
@@ -11,6 +11,7 @@ function App() {
       <AddTodo />
       <DeleteTodo />
       <Post />
+      <LazyPost />
       <TodoList />
     </>
   );
